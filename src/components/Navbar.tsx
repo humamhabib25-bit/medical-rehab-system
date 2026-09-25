@@ -26,16 +26,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-20">
           
           {/* الشعار واسم المركز الطبي */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center shadow-md shadow-teal-700/20">
-              <Activity className="w-7 h-7 animate-pulse" />
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center shadow-md shadow-teal-700/20 shrink-0">
+              <Activity className="w-5 h-5 sm:w-7 sm:h-7 animate-pulse" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-slate-800 leading-tight">
-                مركز الأمل للتأهيل الطبي والعلاج الطبيعي
+            <div className="min-w-0">
+              <h1 className="text-sm sm:text-lg lg:text-xl font-bold text-slate-800 leading-tight truncate">
+                مركز الأمل للتأهيل الطبي
               </h1>
-              <p className="text-xs text-slate-500 font-medium">
-                منظومة إدارة الخطط العلاجية وضبط الطاقة الاستيعابية
+              <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate hidden xs:block sm:block">
+                منظومة إدارة الخطط وضبط السعة
               </p>
             </div>
           </div>
@@ -61,19 +61,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* زر إنشاء خطة جديدة */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={onOpenNewPlanModal}
-              className="btn btn-primary shadow-lg shadow-teal-600/25 px-4 py-2.5 rounded-xl flex items-center gap-2 font-bold cursor-pointer"
+              className="btn btn-primary shadow-lg shadow-teal-600/25 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-xl flex items-center gap-1.5 sm:gap-2 font-bold cursor-pointer text-xs sm:text-sm"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>خطة علاجية جديدة</span>
             </button>
           </div>
         </div>
 
         {/* شريط التنقل بين التبويبات */}
-        <div className="flex items-center gap-2 border-t border-slate-100 pt-2 pb-3 overflow-x-auto">
+        <div className="flex items-center gap-1.5 sm:gap-2 border-t border-slate-100 pt-2 pb-3 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab('calendar')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${

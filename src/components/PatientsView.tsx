@@ -142,8 +142,26 @@ export const PatientsView: React.FC<PatientsViewProps> = ({
       )}
 
       {/* قائمة بطاقات المرضى */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredPatients.map((patient) => {
+      {filteredPatients.length === 0 ? (
+        <div className="glass-panel p-8 sm:p-12 text-center bg-white rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div className="w-14 h-14 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mx-auto">
+            <User className="w-7 h-7" />
+          </div>
+          <h3 className="text-sm sm:text-base font-bold text-slate-800">لا يوجد مرضى مسجلين حالياً</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            النظام جاهز ومصفّر لبدء استقبال المرضى. اضغط على الزر أدناه لتسجيل أول مريض والبدء بجدولة خطته العلاجية.
+          </p>
+          <button
+            onClick={() => setIsAdding(true)}
+            className="btn btn-primary text-xs font-bold inline-flex items-center gap-1.5 px-4 py-2"
+          >
+            <Plus className="w-4 h-4" />
+            <span>تسجيل مريض جديد الآن</span>
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredPatients.map((patient) => {
           const patientPlans = plans.filter((p) => p.patientId === patient.id);
           const activePlan = patientPlans.find((p) => p.status === 'ACTIVE');
 
@@ -214,6 +232,7 @@ export const PatientsView: React.FC<PatientsViewProps> = ({
           );
         })}
       </div>
+      )}
 
     </div>
   );

@@ -19,7 +19,7 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  DateTime _selectedDate = DateTime(2026, 9, 6);
+  DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {

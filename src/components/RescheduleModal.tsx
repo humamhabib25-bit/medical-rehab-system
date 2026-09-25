@@ -24,7 +24,7 @@ export const RescheduleModal: React.FC<RescheduleModalProps> = ({
 }) => {
   if (!isOpen || !session) return null;
 
-  const [targetDate, setTargetDate] = useState<string>('2026-09-10');
+  const [targetDate, setTargetDate] = useState<string>(session.sessionDate || new Date().toISOString().split('T')[0]);
   const [allowOverride, setAllowOverride] = useState<boolean>(false);
 
   // فحص سعة اليوم المستهدف

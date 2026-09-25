@@ -31,14 +31,17 @@ export const ShiftModal: React.FC<ShiftModalProps> = ({
 }) => {
   if (!isOpen || !plan) return null;
 
-  const [fromSessionNum, setFromSessionNum] = useState<number>(initialFromSessionNum);
-  const [newStartDate, setNewStartDate] = useState<string>('2026-09-12');
-  const [allowOverride, setAllowOverride] = useState<boolean>(false);
-
   const planSessions = allSessions.filter((s) => s.planId === plan.id);
   const eligibleSessions = planSessions
     .filter((s) => s.status !== 'COMPLETED')
     .sort((a, b) => a.sessionNumber - b.sessionNumber);
+
+  const [fromSessionNum, setFromSessionNum] = useState<number>(initialFromSessionNum);
+  const [newStartDate, setNewStartDate] = useState<string>(() => {
+    const match = eligibleSessions.find((s) => s.sessionNumber === initialFromSessionNum);
+    return match?.sessionDate || new Date().toISOString().split('T')[0];
+  });
+  const [allowOverride, setAllowOverride] = useState<boolean>(false);
 
   // المعاينة الحية للترحيل
   const shiftPreview = useMemo(() => {

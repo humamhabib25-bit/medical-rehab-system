@@ -41,8 +41,8 @@ export function App() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // إحصائيات اليوم (2026-09-08 كمرجع للبيانات الحية)
-  const todayDateStr = '2026-09-08';
+  // إحصائيات اليوم المباشرة
+  const todayDateStr = useMemo(() => new Date().toISOString().split('T')[0], []);
   const todayCap = useMemo(() => {
     return calculateDayCapacity(todayDateStr, sessions, capacitySettings, defaultCapacity);
   }, [todayDateStr, sessions, capacitySettings, defaultCapacity]);

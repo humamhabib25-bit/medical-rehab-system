@@ -65,10 +65,10 @@ export const PlanModal: React.FC<PlanModalProps> = ({
   const [newPatientDiagnosis, setNewPatientDiagnosis] = useState<string>('');
 
   const [totalSessions, setTotalSessions] = useState<number>(10);
-  const [startDate, setStartDate] = useState<string>('2026-09-06');
+  const [startDate, setStartDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
   const [pattern, setPattern] = useState<SchedulePattern>('SUN_TUE_THU');
   const [customDays, setCustomDays] = useState<number[]>([0, 2, 4]);
-  const [therapistName, setTherapistName] = useState<string>('أ. د. سامي العتيبي');
+  const [therapistName, setTherapistName] = useState<string>('');
   const [clinicalNotes, setClinicalNotes] = useState<string>('');
   const [allowOverride, setAllowOverride] = useState<boolean>(false);
 
@@ -176,15 +176,15 @@ export const PlanModal: React.FC<PlanModalProps> = ({
       <div className="modal-content max-w-3xl">
         
         {/* رأس النافذة */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-teal-50/50">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-teal-50/50">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-teal-600 text-white rounded-xl">
+            <div className="p-2 bg-teal-600 text-white rounded-xl shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-800">حجز خطة علاجية متعددة الجلسات</h2>
-              <p className="text-xs text-slate-500">
-                توزيع تلقائي ذكي للجلسات مع فحص السعة اليومية وتخطي الأيام المكتملة
+              <h2 className="text-base sm:text-lg font-bold text-slate-800">حجز خطة علاجية متعددة الجلسات</h2>
+              <p className="text-[11px] sm:text-xs text-slate-500">
+                توزيع تلقائي ذكي للجلسات مع فحص السعة وتخطي الأيام المكتملة
               </p>
             </div>
           </div>
@@ -196,7 +196,7 @@ export const PlanModal: React.FC<PlanModalProps> = ({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           
           {/* قسم اختيار المريض */}
           <div className="space-y-2">
@@ -472,17 +472,17 @@ export const PlanModal: React.FC<PlanModalProps> = ({
               <label className="text-xs font-bold text-slate-700 block mb-1.5">
                 حالة الدفع المبدئية:
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <button
                   type="button"
                   onClick={() => {
                     setPaymentOption('FULL');
                     setCustomPaidAmount(totalPrice);
                   }}
-                  className={`py-1.5 px-2 rounded-lg text-xs font-bold border transition-all ${
+                  className={`py-2 px-2.5 rounded-lg text-xs font-bold border transition-all text-center ${
                     paymentOption === 'FULL'
                       ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
-                      : 'bg-white text-slate-700 border-slate-200'
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
                   ✓ سداد كامل ({totalPrice} ر.س)
@@ -494,10 +494,10 @@ export const PlanModal: React.FC<PlanModalProps> = ({
                     setPaymentOption('PARTIAL');
                     setCustomPaidAmount(Math.round(totalPrice / 2));
                   }}
-                  className={`py-1.5 px-2 rounded-lg text-xs font-bold border transition-all ${
+                  className={`py-2 px-2.5 rounded-lg text-xs font-bold border transition-all text-center ${
                     paymentOption === 'PARTIAL'
                       ? 'bg-amber-600 text-white border-amber-600 shadow-sm'
-                      : 'bg-white text-slate-700 border-slate-200'
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
                   دفعة جزئية (عربون)
@@ -509,10 +509,10 @@ export const PlanModal: React.FC<PlanModalProps> = ({
                     setPaymentOption('UNPAID');
                     setCustomPaidAmount(0);
                   }}
-                  className={`py-1.5 px-2 rounded-lg text-xs font-bold border transition-all ${
+                  className={`py-2 px-2.5 rounded-lg text-xs font-bold border transition-all text-center ${
                     paymentOption === 'UNPAID'
                       ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
-                      : 'bg-white text-slate-700 border-slate-200'
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
                   سداد آجل (0 ر.س)
@@ -521,7 +521,7 @@ export const PlanModal: React.FC<PlanModalProps> = ({
 
               {/* حقل إدخال المبلغ المدفوع في حال الدفع الجزئي */}
               {paymentOption === 'PARTIAL' && (
-                <div className="mt-2.5 flex items-center gap-2 bg-white p-2 rounded-lg border border-amber-200">
+                <div className="mt-2.5 flex flex-wrap items-center gap-2 bg-white p-2.5 rounded-lg border border-amber-200">
                   <span className="text-xs font-bold text-slate-600">المبلغ المدفوع حالياً:</span>
                   <input
                     type="number"
@@ -529,7 +529,7 @@ export const PlanModal: React.FC<PlanModalProps> = ({
                     max={totalPrice}
                     value={customPaidAmount}
                     onChange={(e) => setCustomPaidAmount(Number(e.target.value))}
-                    className="input-control text-xs font-bold w-32"
+                    className="input-control text-xs font-bold w-28 sm:w-32"
                   />
                   <span className="text-xs font-bold text-slate-500">ر.س</span>
                   <span className="text-[11px] text-amber-700 mr-auto font-semibold">
@@ -541,9 +541,9 @@ export const PlanModal: React.FC<PlanModalProps> = ({
           </div>
 
           {/* خيار صلاحية المشرف لتجاوز السعة (Override Option) */}
-          <div className="p-3 bg-amber-50/60 border border-amber-200 rounded-xl flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ShieldAlert className="w-5 h-5 text-amber-600" />
+          <div className="p-3 bg-amber-50/60 border border-amber-200 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="flex items-start sm:items-center gap-2">
+              <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5 sm:mt-0" />
               <div>
                 <div className="text-xs font-bold text-slate-800">
                   صلاحية المشرف: فتح مقعد إضافي في الأيام المكتملة (Override)
@@ -553,7 +553,7 @@ export const PlanModal: React.FC<PlanModalProps> = ({
                 </div>
               </div>
             </div>
-            <label className="switch" title="تفعيل / تعطيل صلاحية المشرف">
+            <label className="switch shrink-0" title="تفعيل / تعطيل صلاحية المشرف">
               <input
                 type="checkbox"
                 checked={allowOverride}

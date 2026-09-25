@@ -56,23 +56,23 @@ export const PlansListView: React.FC<PlansListViewProps> = ({
     <div className="space-y-6">
       
       {/* شريط التصفية والبحث */}
-      <div className="glass-panel p-4 bg-white flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="glass-panel p-3 sm:p-4 bg-white flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
         
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full md:w-auto">
           <input
             type="text"
             placeholder="البحث باسم المريض أو التشخيص..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="input-control text-xs w-full md:w-72"
+            className="input-control text-xs w-full sm:w-64 md:w-72"
           />
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 justify-center sm:justify-start">
             {['ALL', 'ACTIVE', 'COMPLETED'].map((st) => (
               <button
                 key={st}
                 onClick={() => setFilterStatus(st)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${
+                className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-bold border transition-all text-center ${
                   filterStatus === st
                     ? 'bg-teal-600 text-white border-teal-600'
                     : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
@@ -86,7 +86,7 @@ export const PlansListView: React.FC<PlansListViewProps> = ({
 
         <button
           onClick={onOpenNewPlanModal}
-          className="btn btn-primary text-xs font-bold w-full md:w-auto flex items-center gap-1.5"
+          className="btn btn-primary text-xs font-bold w-full md:w-auto flex items-center justify-center gap-1.5 py-2.5"
         >
           <Plus className="w-4 h-4" />
           <span>خطة علاجية جديدة</span>
@@ -158,7 +158,7 @@ export const PlansListView: React.FC<PlansListViewProps> = ({
                   {/* التفاصيل المالية والإجراءات */}
                   <div className="flex flex-wrap items-center gap-3">
                     {/* بطاقة السعر وحالة السداد */}
-                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs flex items-center gap-3">
+                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3">
                       <div>
                         <div className="text-[10px] text-slate-500 font-semibold">قيمة الخطة:</div>
                         <div className="font-extrabold text-slate-800 text-sm">
