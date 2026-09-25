@@ -22,11 +22,11 @@ import {
 } from '../core/schedulingEngine';
 
 const STORAGE_KEYS = {
-  PATIENTS: 'rehab_clinic_patients_v1',
-  PLANS: 'rehab_clinic_plans_v1',
-  SESSIONS: 'rehab_clinic_sessions_v1',
-  CAPACITY: 'rehab_clinic_capacity_v1',
-  DEFAULT_CAP: 'rehab_clinic_default_cap_v1'
+  PATIENTS: 'rehab_clinic_patients_v2',
+  PLANS: 'rehab_clinic_plans_v2',
+  SESSIONS: 'rehab_clinic_sessions_v2',
+  CAPACITY: 'rehab_clinic_capacity_v2',
+  DEFAULT_CAP: 'rehab_clinic_default_cap_v2'
 };
 
 export function useClinicStore() {
